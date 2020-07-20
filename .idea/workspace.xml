@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="34728ee3-51d5-4d38-99a5-fa4704aef838" name="Default Changelist" comment="">
+    <list default="true" id="34728ee3-51d5-4d38-99a5-fa4704aef838" name="Default Changelist" comment="new class Department">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Staff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Staff.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Staff.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Staff.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Staff.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Staff.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1/Department.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Staff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1/Staff.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Department.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Employee.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Staff.class" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,13 +37,19 @@
   </component>
   <component name="ProjectId" id="1ejOe9EQf9mgHGf5mzGoRFb8vDz" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="C:/Program Files/Git/bin/git.exe" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1" />
+    <property name="project.structure.last.edited" value="Facets" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\D\Projects\task1\staff\src\main\java\com\innotechnum\practice\task1" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -52,8 +65,9 @@
   </component>
   <component name="RunManager">
     <configuration name="Staff" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Staff" />
+      <option name="MAIN_CLASS_NAME" value="com.innotechnum.practice.task1.Staff" />
       <module name="staff" />
+      <option name="PROGRAM_PARAMETERS" value="Staff.txt ChangedStaff.txt" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -77,8 +91,21 @@
       <workItem from="1594831632115" duration="4649000" />
       <workItem from="1594836650540" duration="1706000" />
       <workItem from="1594892444637" duration="2042000" />
-      <workItem from="1594894703004" duration="5055000" />
+      <workItem from="1594894703004" duration="6333000" />
+      <workItem from="1594969664511" duration="265000" />
+      <workItem from="1594971579796" duration="1407000" />
+      <workItem from="1595007932012" duration="10614000" />
+      <workItem from="1595047931803" duration="2512000" />
+      <workItem from="1595141155414" duration="9384000" />
     </task>
+    <task id="LOCAL-00001" summary="new class Department">
+      <created>1594900070916</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1594900070916</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -89,10 +116,16 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="new class Department" />
+    <option name="LAST_COMMIT_MESSAGE" value="new class Department" />
   </component>
 </project>

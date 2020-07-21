@@ -6,138 +6,108 @@ import java.util.*;
 
 public class Staff {
     private static Map<String, Department> departments = new LinkedHashMap<>();
-    private static List<Employee> staff = new ArrayList<>();
 
-    public static void readStaff(String file) {
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+    public static Map<String, Department> readStaff(String file) throws IOException {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             String currentLine;
             String fullName;
             Department department;
-            BigDecimal salary = null;
+            BigDecimal salary;
             Employee employee;
 
             while ((currentLine = bufferedReader.readLine()) != null) {
+                if (!checkEmployee(currentLine)) {
+                    continue;
+                }
                 String[] information = currentLine.split("/");
-                if (information.length != 3) {
-                    System.out.println("В строке - " + currentLine + " некорректное количество разделителей");
-                    continue;
-                }
+
                 fullName = information[0];
-
-                department = getDepartment(information[1]);
-
-                try {
-                    salary = new BigDecimal(information[2]);
-                } catch (NumberFormatException e) {
-                    System.out.println("Некорректная зарплата у сотрудника - " + fullName);
-                    continue;
-                }
+                department = departments.getOrDefault(information[1], new Department(information[1]));
+                departments.putIfAbsent(information[1], department);
+                salary = new BigDecimal(information[2]);
 
                 employee = new Employee(fullName, department, salary);
-                staff.add(employee);
                 department.newEmployee(employee);
             }
 
         } catch (FileNotFoundException e) {
-            System.out.println("Файл не найден");
-            System.exit(0);
+            System.out.println("Файл " + file + " не найден");
+            throw new FileNotFoundException();
         } catch (IOException e) {
-            System.out.println("Ошибка при чтении файла");
-            System.exit(0);
+            System.out.println("Ошибка при чтении файла " + file);
+            throw new IOException();
         }
+        return departments;
     }
 
-    public static Department getDepartment(String name) {
-        Department department;
-        if ((department = departments.get(name)) == null) {
-            department = new Department(name);
-            departments.put(name, department);
+    public static boolean checkEmployee(String line) {
+        String[] information = line.split("/");
+        if (information.length != 3) {
+            System.out.println("В строке - " + line + " некорректное количество разделителей");
+            return false;
         }
-        return department;
-    }
 
-    public static void writeStaff(String file) {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
-            for(Employee employee : staff) {
-                bufferedWriter.write(employee.getFullName() + "/" + employee.getDepartment().getName() + "/" + employee.getSalary() + "\n");
+        if (information[0].isEmpty()) {
+            System.out.println("Некорректное имя пользователя в строке - " + information);
+            return false;
+        }
+
+        if (information[1].isEmpty()) {
+            System.out.println("Некорректное название отдела в строке - " + information);
+            return false;
+        }
+
+        try {
+            BigDecimal salary = new BigDecimal(information[2]);
+            if ((salary.compareTo(BigDecimal.ZERO) < 0) || (salary.scale() > 2)) {
+                throw new NumberFormatException();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            System.out.println("Некорректная зарплата у сотрудника - " + information[0]);
+            return false;
         }
+
+        return true;
     }
 
-    public static void transfer(Employee employee, Department department) {
-        if (employee.getDepartment() == department) {
-            System.out.println("Перевод сотрудника в его текущий отдел не возможен");
-            return;
-        }
-        Department currentDepartment = employee.getDepartment();
-        employee.setDepartment(department);
-        currentDepartment.removeEmployee(employee);
-        department.newEmployee(employee);
-        if (!departments.containsValue(department)) {
-            departments.put(department.getName(), department);
-        }
-    }
+    public static void transferWithIncrease() {
+        System.out.println("Варианты переводов сотрудников, при которых средняя зарплата увеличивается в обоих отделах:");
+        for (Department department1 : departments.values()) {
+            for (Department department2 : departments.values()) {
+                if (department1.getAverageSalary().compareTo(department2.getAverageSalary()) > 0) {
+                    for (Employee employee : department1.getEmployees()) {
+                        if ((employee.getSalary().compareTo(department1.getAverageSalary()) < 0) &&
+                                (employee.getSalary().compareTo(department2.getAverageSalary()) > 0)) {
+                            System.out.println("    " + employee.getFullName() + " из отдела " + department1.getName() +
+                                    " в отдел " + department2.getName());
+                        }
+                    }
+                }
 
-    public static Employee transferWithIncrease(Department department1, Department department2) {
-        if (department1 == department2) {
-            System.out.println("Перевод сотрудника в его текущий отдел не возможен");
-            return null;
-        }
-        Employee employee;
-        if (department1.getAverageSalary().compareTo(department2.getAverageSalary()) == 0)  {
-            System.out.println("Средние зарплаты отделов равны");
-            return null;
-        } else if  (department1.getAverageSalary().compareTo(department2.getAverageSalary()) == 1) {
-            if (department1.getNumberEmployee() <= 1) {
-                System.out.println("В отделе " + department1.getName() + " недостаточно сотрудников");
-                return null;
-            }
-            employee = searchEmployeeForTransfer(department1, department2);
-            transfer(employee, department2);
-            return employee;
-        } else {
-            if (department2.getNumberEmployee() <= 1) {
-                System.out.println("В отделе " + department2.getName() + " недостаточно сотрудников");
-                return null;
-            }
-            employee = searchEmployeeForTransfer(department2, department1);
-            transfer(employee, department1);
-            return employee;
-        }
-    }
-
-    public static Employee searchEmployeeForTransfer(Department departmentWithHigherAverageSalary, Department departmentWithLoverAverageSalary) {
-        for(Employee employee : departmentWithHigherAverageSalary.getEmployees()) {
-            if ((employee.getSalary().compareTo(departmentWithHigherAverageSalary.getAverageSalary()) == -1) &&
-                    (employee.getSalary().compareTo(departmentWithLoverAverageSalary.getAverageSalary()) == 1)) {
-                return employee;
             }
         }
-        return null;
     }
 
     public static void summary() {
-        for(Map.Entry<String, Department> entry : departments.entrySet()) {
-            System.out.println("В отделе " + entry.getValue().getName() + " сотрудников - " + entry.getValue().getNumberEmployee() +
-                    " ,средняя зарплата = " + entry.getValue().getAverageSalary());
+        for (Department department : departments.values()) {
+            System.out.println("В отделе " + department.getName() + " сотрудников - " + department.getEmployees().size() +
+                    " ,средняя зарплата = " + department.getAverageSalary());
         }
     }
 
-    public static void main(String[] args)  {
-        readStaff(args[0]);
+    public static void main(String[] args) {
+        try {
+            readStaff(args[0]);
 
-        for(Employee employee : staff) {
-            System.out.println(employee.getFullName() + " " + employee.getDepartment().getName() + " " + employee.getSalary());
+
+            summary();
+            System.out.println();
+
+            transferWithIncrease();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Некорректные параметры программы");
+        } catch (IOException e) {
+
         }
-
-        summary();
-        System.out.println();
-
-        transferWithIncrease(departments.get("Бухгалтерия"), departments.get("Маркетинг"));
-        writeStaff(args[1]);
-
-        summary();
     }
 }

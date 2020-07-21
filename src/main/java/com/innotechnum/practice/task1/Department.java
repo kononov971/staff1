@@ -31,10 +31,6 @@ public class Department {
         return totalSalary;
     }
 
-    public int getNumberEmployee() {
-        return employees.size();
-    }
-
     public void newEmployee(Employee employee) {
         this.employees.add(employee);
     }
@@ -44,7 +40,7 @@ public class Department {
     }
 
     public BigDecimal getAverageSalary() {
-        return getTotalSalary().divide(BigDecimal.valueOf(getNumberEmployee()), 2, RoundingMode.HALF_UP);
+        return getTotalSalary().divide(BigDecimal.valueOf(employees.size()), 2, RoundingMode.HALF_UP);
     }
 
 }

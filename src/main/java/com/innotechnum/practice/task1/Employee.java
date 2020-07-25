@@ -28,4 +28,34 @@ public class Employee {
     public void setDepartment(Department department) {
         this.department = department;
     }
+
+    public static boolean checkEmployee(String line) {
+        String[] information = line.split("/");
+        if (information.length != 3) {
+            System.out.println("В строке - " + line + " некорректное количество разделителей");
+            return false;
+        }
+
+        if (information[0].isEmpty()) {
+            System.out.println("Некорректное имя пользователя в строке - " + information);
+            return false;
+        }
+
+        if (information[1].isEmpty()) {
+            System.out.println("Некорректное название отдела в строке - " + information);
+            return false;
+        }
+
+        try {
+            BigDecimal salary = new BigDecimal(information[2]);
+            if ((salary.compareTo(BigDecimal.ZERO) <= 0) || (salary.scale() > 2)) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Некорректная зарплата у сотрудника - " + information[0]);
+            return false;
+        }
+
+        return true;
+    }
 }

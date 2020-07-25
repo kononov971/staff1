@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="34728ee3-51d5-4d38-99a5-fa4704aef838" name="Default Changelist" comment="">
+    <list default="true" id="34728ee3-51d5-4d38-99a5-fa4704aef838" name="Default Changelist" comment="changed transfer">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChangedStaff.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ChangedStaff.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Staff.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Staff.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1/Department.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1/Employee.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1/Staff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1/Staff.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staff.iml" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,16 +33,27 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
+  <component name="GithubProjectSettings">
+    <option name="CREATE_PULL_REQUEST_DEFAULT_BRANCH" value="develop" />
+    <option name="CREATE_PULL_REQUEST_DEFAULT_REPO_USER" value="kononov971" />
+    <option name="CREATE_PULL_REQUEST_DEFAULT_REPO_NAME" value="staff1" />
+  </component>
   <component name="ProjectId" id="1ejOe9EQf9mgHGf5mzGoRFb8vDz" />
+  <component name="ProjectViewState">
+    <option name="abbreviatePackageNames" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="ToolWindowAnt.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1" />
-    <property name="project.structure.last.edited" value="Facets" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -86,7 +101,16 @@
       <workItem from="1595007932012" duration="10614000" />
       <workItem from="1595047931803" duration="2512000" />
       <workItem from="1595141155414" duration="10694000" />
-      <workItem from="1595308476804" duration="15479000" />
+      <workItem from="1595308476804" duration="16339000" />
+      <workItem from="1595504516081" duration="2027000" />
+      <workItem from="1595577741557" duration="405000" />
+      <workItem from="1595578490088" duration="110000" />
+      <workItem from="1595578621254" duration="779000" />
+      <workItem from="1595580016603" duration="5833000" />
+      <workItem from="1595593697773" duration="12671000" />
+      <workItem from="1595671558909" duration="15624000" />
+      <workItem from="1595687728130" duration="751000" />
+      <workItem from="1595688598652" duration="606000" />
     </task>
     <task id="LOCAL-00001" summary="new class Department">
       <created>1594900070916</created>
@@ -102,7 +126,28 @@
       <option name="project" value="LOCAL" />
       <updated>1595226130819</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="changed transfer">
+      <created>1595351877366</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1595351877366</updated>
+    </task>
+    <task id="LOCAL-00004" summary="changed transfer">
+      <created>1595684559959</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1595684559959</updated>
+    </task>
+    <task id="LOCAL-00005" summary="changed transfer">
+      <created>1595685066054</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1595685066054</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -124,6 +169,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="new class Department" />
     <MESSAGE value="refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring" />
+    <MESSAGE value="changed transfer" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed transfer" />
   </component>
 </project>

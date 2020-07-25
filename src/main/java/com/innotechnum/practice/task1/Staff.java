@@ -1,90 +1,55 @@
 package com.innotechnum.practice.task1;
 
-import java.io.*;
-import java.math.BigDecimal;
 import java.util.*;
 
 public class Staff {
     private static Map<String, Department> departments = new LinkedHashMap<>();
 
-    public static Map<String, Department> readStaff(String file) throws IOException {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            String currentLine;
-            String fullName;
-            Department department;
-            BigDecimal salary;
-            Employee employee;
-
-            while ((currentLine = bufferedReader.readLine()) != null) {
-                if (!checkEmployee(currentLine)) {
-                    continue;
-                }
-                String[] information = currentLine.split("/");
-
-                fullName = information[0];
-                department = departments.getOrDefault(information[1], new Department(information[1]));
-                departments.putIfAbsent(information[1], department);
-                salary = new BigDecimal(information[2]);
-
-                employee = new Employee(fullName, department, salary);
-                department.newEmployee(employee);
-            }
-
-        } catch (FileNotFoundException e) {
-            System.out.println("Файл " + file + " не найден");
-            throw new FileNotFoundException();
-        } catch (IOException e) {
-            System.out.println("Ошибка при чтении файла " + file);
-            throw new IOException();
-        }
-        return departments;
-    }
-
-    public static boolean checkEmployee(String line) {
-        String[] information = line.split("/");
-        if (information.length != 3) {
-            System.out.println("В строке - " + line + " некорректное количество разделителей");
-            return false;
-        }
-
-        if (information[0].isEmpty()) {
-            System.out.println("Некорректное имя пользователя в строке - " + information);
-            return false;
-        }
-
-        if (information[1].isEmpty()) {
-            System.out.println("Некорректное название отдела в строке - " + information);
-            return false;
-        }
-
-        try {
-            BigDecimal salary = new BigDecimal(information[2]);
-            if ((salary.compareTo(BigDecimal.ZERO) < 0) || (salary.scale() > 2)) {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Некорректная зарплата у сотрудника - " + information[0]);
-            return false;
-        }
-
-        return true;
-    }
-
     public static void transferWithIncrease() {
         System.out.println("Варианты переводов сотрудников, при которых средняя зарплата увеличивается в обоих отделах:");
         for (Department department1 : departments.values()) {
             for (Department department2 : departments.values()) {
-                if (department1.getAverageSalary().compareTo(department2.getAverageSalary()) > 0) {
-                    for (Employee employee : department1.getEmployees()) {
-                        if ((employee.getSalary().compareTo(department1.getAverageSalary()) < 0) &&
-                                (employee.getSalary().compareTo(department2.getAverageSalary()) > 0)) {
-                            System.out.println("    " + employee.getFullName() + " из отдела " + department1.getName() +
-                                    " в отдел " + department2.getName());
-                        }
-                    }
-                }
+                transferOptions(department1, department2);
 
             }
+        }
+    }
+
+    private static void transferOptions(Department department1, Department department2) {
+        if (department1.getAverageSalary().compareTo(department2.getAverageSalary()) > 0) {
+            for (Employee employee : department1.getEmployees()) {
+                if ((employee.getSalary().compareTo(department1.getAverageSalary()) < 0) &&
+                        (employee.getSalary().compareTo(department2.getAverageSalary()) > 0)) {
+                    System.out.println("    " + employee.getFullName() + " из отдела " + department1.getName() +
+                            " в отдел " + department2.getName());
+                }
+            }
+        }
+    }
+
+
+    public static void transferCombinationWithIncrease(String file) {
+        IOEmployees.clearFile(file);
+        for (Department department1 : departments.values()) {
+            for (Department department2 : departments.values()) {
+                getCombinations(department1, department2, file);
+            }
+        }
+    }
+
+    private static void getCombinations(Department department1, Department department2, String file) {
+        Employee[] employees = department1.getEmployees().toArray(new Employee[department1.getEmployees().size()]);
+        Stack<Employee> employeesForTransfer = new Stack<>();
+        transferCombinations(employees, -1, department1, department2, employeesForTransfer, file);
+    }
+
+    private static void transferCombinations(Employee[] employees, int last, Department outDepartment, Department inDepartment, Stack<Employee> employeesForTransfer, String file) {
+        //IOEmployees.outputCombinationsInConsole(outDepartment, inDepartment, employeesForTransfer);
+        IOEmployees.outputCombinationsInFile(outDepartment, inDepartment, employeesForTransfer, file);
+        for (int i = last + 1; i < employees.length; i++) {
+            employeesForTransfer.push(employees[i]);
+            transferCombinations(employees, i, outDepartment, inDepartment, employeesForTransfer, file);
+            employeesForTransfer.pop();
         }
     }
 
@@ -96,18 +61,18 @@ public class Staff {
     }
 
     public static void main(String[] args) {
-        try {
-            readStaff(args[0]);
-
-
-            summary();
-            System.out.println();
-
-            transferWithIncrease();
-        } catch (IndexOutOfBoundsException e) {
+        if (args.length == 0) {
             System.out.println("Некорректные параметры программы");
-        } catch (IOException e) {
-
+            return;
         }
+
+        if ((departments = IOEmployees.readStaff(args[0])).isEmpty()) {
+            return;
+        }
+
+        summary();
+        System.out.println();
+
+        transferCombinationWithIncrease(args[1]);
     }
 }

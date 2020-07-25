@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.List;
 
 public class Department {
     private String name;
@@ -41,6 +42,26 @@ public class Department {
 
     public BigDecimal getAverageSalary() {
         return getTotalSalary().divide(BigDecimal.valueOf(employees.size()), 2, RoundingMode.HALF_UP);
+    }
+
+    public BigDecimal getAverageSalaryWithoutEmployees(List<Employee> transferEmployees) {
+        BigDecimal potentialTotalSalary = this.getTotalSalary();
+        for(Employee employee : transferEmployees) {
+            potentialTotalSalary = potentialTotalSalary.subtract(employee.getSalary());
+        }
+        if (employees.size() - transferEmployees.size() != 0) {
+            return potentialTotalSalary.divide(BigDecimal.valueOf(employees.size() - transferEmployees.size()), 2, RoundingMode.HALF_UP);
+        } else {
+            return BigDecimal.ZERO;
+        }
+    }
+
+    public BigDecimal getAverageSalaryWithEmployees(List<Employee> transferEmployees) {
+        BigDecimal potentialTotalSalary = this.getTotalSalary();
+        for(Employee employee : transferEmployees) {
+            potentialTotalSalary = potentialTotalSalary.add(employee.getSalary());
+        }
+        return potentialTotalSalary.divide(BigDecimal.valueOf(employees.size() + transferEmployees.size()), 2, RoundingMode.HALF_UP);
     }
 
 }

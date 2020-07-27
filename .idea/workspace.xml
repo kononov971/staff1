@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="34728ee3-51d5-4d38-99a5-fa4704aef838" name="Default Changelist" comment="changed transfer">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChangedStaff.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ChangedStaff.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Staff.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Staff.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1/Department.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1/Staff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/innotechnum/practice/task1/Staff.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staff.iml" beforeDir="false" />
-    </list>
+    <list default="true" id="34728ee3-51d5-4d38-99a5-fa4704aef838" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +101,7 @@
       <workItem from="1595593697773" duration="12671000" />
       <workItem from="1595671558909" duration="15624000" />
       <workItem from="1595687728130" duration="751000" />
-      <workItem from="1595688598652" duration="606000" />
+      <workItem from="1595688598652" duration="772000" />
     </task>
     <task id="LOCAL-00001" summary="new class Department">
       <created>1594900070916</created>
@@ -147,7 +138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1595685066054</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="changed transfer">
+      <created>1595689222119</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1595689222119</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

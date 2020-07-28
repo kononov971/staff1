@@ -3,8 +3,8 @@ package com.innotechnum.practice.task1;
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 
 public class IOEmployees {
@@ -40,47 +40,24 @@ public class IOEmployees {
         return departments;
     }
 
-    public static void outputCombinationsInConsole(Department outDepartment, Department inDepartment, List<Employee> employeesForTransfer) {
-        if ((outDepartment.getAverageSalaryWithoutEmployees(employeesForTransfer).compareTo(outDepartment.getAverageSalary()) > 0) &&
-                (inDepartment.getAverageSalaryWithEmployees(employeesForTransfer).compareTo(inDepartment.getAverageSalary()) > 0)) {
-            System.out.print("    Сотрудники: ");
+    public static void outputCombinationsInFile(String outDepartmentName, BigDecimal outDepartmentAverageSalary,
+                                                BigDecimal outDepartmentAverageSalaryWithoutEmployees,
+                                                String inDepartmentName, BigDecimal inDepartmentAverageSalary,
+                                                BigDecimal inDepartmentAverageSalaryWithEmployees,
+                                                Queue<Employee> employeesForTransfer, BufferedWriter bufferedWriter) throws IOException {
+        if ((Department.getAverageSalary(employeesForTransfer).compareTo(outDepartmentAverageSalary) < 0) &&
+                (Department.getAverageSalary(employeesForTransfer).compareTo(inDepartmentAverageSalary) > 0)) {
+            bufferedWriter.write("    Сотрудники: ");
             for (Employee e : employeesForTransfer) {
-                System.out.print(e.getFullName() + ", ");
+                bufferedWriter.write(e.getFullName() + ", ");
             }
-            System.out.println("из отдела " + outDepartment.getName() + " в отдел " + inDepartment.getName() + ".");
-            System.out.println("    Средняя зарплата в отделе " + outDepartment.getName() + " изменится с " + outDepartment.getAverageSalary() +
-                    " на " + outDepartment.getAverageSalaryWithoutEmployees(employeesForTransfer));
-            System.out.println("    Средняя зарплата в отделе " + inDepartment.getName() + " изменится с " + inDepartment.getAverageSalary() +
-                    " на " + inDepartment.getAverageSalaryWithEmployees(employeesForTransfer));
-            System.out.println();
-        }
-    }
-
-    public static void outputCombinationsInFile(Department outDepartment, Department inDepartment, List<Employee> employeesForTransfer, String file) {
-        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))) {
-            if ((outDepartment.getAverageSalaryWithoutEmployees(employeesForTransfer).compareTo(outDepartment.getAverageSalary()) > 0) &&
-                    (inDepartment.getAverageSalaryWithEmployees(employeesForTransfer).compareTo(inDepartment.getAverageSalary()) > 0)) {
-                bufferedWriter.write("    Сотрудники: ");
-                for (Employee e : employeesForTransfer) {
-                    bufferedWriter.write(e.getFullName() + ", ");
-                }
-                bufferedWriter.write("из отдела " + outDepartment.getName() + " в отдел " + inDepartment.getName() + "." + "\n");
-                bufferedWriter.write("    Средняя зарплата в отделе " + outDepartment.getName() + " изменится с " + outDepartment.getAverageSalary() +
-                        " на " + outDepartment.getAverageSalaryWithoutEmployees(employeesForTransfer) + "\n");
-                bufferedWriter.write("    Средняя зарплата в отделе " + inDepartment.getName() + " изменится с " + inDepartment.getAverageSalary() +
-                        " на " + inDepartment.getAverageSalaryWithEmployees(employeesForTransfer) + "\n");
-                bufferedWriter.write("\n");
-                bufferedWriter.flush();
-            }
-        } catch (IOException e) {
-            System.out.println("Некорректные параметры программы");
-        }
-    }
-
-    public static void clearFile(String file) {
-        try (PrintWriter printWriter = new PrintWriter(file)) {
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            bufferedWriter.write("из отдела " + outDepartmentName + " в отдел " + inDepartmentName + "." + "\n");
+            bufferedWriter.write("    Средняя зарплата в отделе " + outDepartmentName + " изменится с " +
+                    outDepartmentAverageSalary + " на " + outDepartmentAverageSalaryWithoutEmployees + "\n");
+            bufferedWriter.write("    Средняя зарплата в отделе " + inDepartmentName + " изменится с " +
+                    inDepartmentAverageSalary + " на " + inDepartmentAverageSalaryWithEmployees + "\n");
+            bufferedWriter.write("\n");
+            bufferedWriter.flush();
         }
     }
 }

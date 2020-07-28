@@ -3,8 +3,8 @@ package com.innotechnum.practice.task1;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.LinkedHashSet;
+import java.util.Queue;
 import java.util.Set;
-import java.util.List;
 
 public class Department {
     private String name;
@@ -44,24 +44,37 @@ public class Department {
         return getTotalSalary().divide(BigDecimal.valueOf(employees.size()), 2, RoundingMode.HALF_UP);
     }
 
-    public BigDecimal getAverageSalaryWithoutEmployees(List<Employee> transferEmployees) {
+    public BigDecimal getAverageSalaryWithoutEmployees(Queue<Employee> transferEmployees) {
         BigDecimal potentialTotalSalary = this.getTotalSalary();
         for(Employee employee : transferEmployees) {
             potentialTotalSalary = potentialTotalSalary.subtract(employee.getSalary());
         }
         if (employees.size() - transferEmployees.size() != 0) {
-            return potentialTotalSalary.divide(BigDecimal.valueOf(employees.size() - transferEmployees.size()), 2, RoundingMode.HALF_UP);
+            return potentialTotalSalary.divide(BigDecimal.valueOf(employees.size() - transferEmployees.size()), 2,
+                    RoundingMode.HALF_UP);
         } else {
             return BigDecimal.ZERO;
         }
     }
 
-    public BigDecimal getAverageSalaryWithEmployees(List<Employee> transferEmployees) {
+    public BigDecimal getAverageSalaryWithEmployees(Queue<Employee> transferEmployees) {
         BigDecimal potentialTotalSalary = this.getTotalSalary();
         for(Employee employee : transferEmployees) {
             potentialTotalSalary = potentialTotalSalary.add(employee.getSalary());
         }
-        return potentialTotalSalary.divide(BigDecimal.valueOf(employees.size() + transferEmployees.size()), 2, RoundingMode.HALF_UP);
+        return potentialTotalSalary.divide(BigDecimal.valueOf(employees.size() + transferEmployees.size()), 2,
+                RoundingMode.HALF_UP);
+    }
+
+    public static BigDecimal getAverageSalary(Queue<Employee> combinationOfEmployees) {
+//        if (combinationOfEmployees.isEmpty()) {
+//            return BigDecimal.ZERO;
+//        }
+        BigDecimal totalSalary = BigDecimal.ZERO;
+        for(Employee employee : combinationOfEmployees) {
+            totalSalary = totalSalary.add(employee.getSalary());
+        }
+        return totalSalary.divide(BigDecimal.valueOf(combinationOfEmployees.size()), 2, RoundingMode.HALF_UP);
     }
 
 }

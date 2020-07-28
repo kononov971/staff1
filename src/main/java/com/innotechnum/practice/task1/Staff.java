@@ -1,68 +1,62 @@
 package com.innotechnum.practice.task1;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Staff {
     private static Map<String, Department> departments = new LinkedHashMap<>();
 
-    public static void transferWithIncrease() {
-        System.out.println("Варианты переводов сотрудников, при которых средняя зарплата увеличивается в обоих отделах:");
-        for (Department department1 : departments.values()) {
-            for (Department department2 : departments.values()) {
-                transferOptions(department1, department2);
-
-            }
-        }
-    }
-
-    private static void transferOptions(Department department1, Department department2) {
-        if (department1.getAverageSalary().compareTo(department2.getAverageSalary()) > 0) {
-            for (Employee employee : department1.getEmployees()) {
-                if ((employee.getSalary().compareTo(department1.getAverageSalary()) < 0) &&
-                        (employee.getSalary().compareTo(department2.getAverageSalary()) > 0)) {
-                    System.out.println("    " + employee.getFullName() + " из отдела " + department1.getName() +
-                            " в отдел " + department2.getName());
+    public static void transferCombinationWithIncrease(String file) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
+            for (Department department1 : departments.values()) {
+                for (Department department2 : departments.values()) {
+                    if ((department1 == department2) || (department1.getAverageSalary().compareTo(department2.getAverageSalary()) <= 0)) {
+                        continue;
+                    }
+                    getCombinations(department1, department2, bufferedWriter);
                 }
             }
+        } catch (IOException e) {
+            System.out.println("Некорректные параметры программы");
         }
     }
 
-
-    public static void transferCombinationWithIncrease(String file) {
-        IOEmployees.clearFile(file);
-        for (Department department1 : departments.values()) {
-            for (Department department2 : departments.values()) {
-                getCombinations(department1, department2, file);
-            }
-        }
-    }
-
-    private static void getCombinations(Department department1, Department department2, String file) {
+    private static void getCombinations(Department department1, Department department2,
+                                        BufferedWriter bufferedWriter) throws IOException {
         Employee[] employees = department1.getEmployees().toArray(new Employee[department1.getEmployees().size()]);
-        Stack<Employee> employeesForTransfer = new Stack<>();
-        transferCombinations(employees, -1, department1, department2, employeesForTransfer, file);
+        Deque<Employee> employeesForTransfer = new ArrayDeque<>();
+        transferCombinations(employees, -1, department1, department2, employeesForTransfer, bufferedWriter);
     }
 
-    private static void transferCombinations(Employee[] employees, int last, Department outDepartment, Department inDepartment, Stack<Employee> employeesForTransfer, String file) {
-        //IOEmployees.outputCombinationsInConsole(outDepartment, inDepartment, employeesForTransfer);
-        IOEmployees.outputCombinationsInFile(outDepartment, inDepartment, employeesForTransfer, file);
+    private static void transferCombinations(Employee[] employees, int last, Department outDepartment,
+                                             Department inDepartment, Deque<Employee> employeesForTransfer,
+                                             BufferedWriter bufferedWriter) throws IOException {
+        if (!employeesForTransfer.isEmpty()) {
+            IOEmployees.outputCombinationsInFile(outDepartment.getName(), outDepartment.getAverageSalary(),
+                    outDepartment.getAverageSalaryWithoutEmployees(employeesForTransfer), inDepartment.getName(),
+                    inDepartment.getAverageSalary(),
+                    inDepartment.getAverageSalaryWithEmployees(employeesForTransfer), employeesForTransfer,
+                    bufferedWriter);
+        }
         for (int i = last + 1; i < employees.length; i++) {
-            employeesForTransfer.push(employees[i]);
-            transferCombinations(employees, i, outDepartment, inDepartment, employeesForTransfer, file);
-            employeesForTransfer.pop();
+            employeesForTransfer.addLast(employees[i]);
+            transferCombinations(employees, i, outDepartment, inDepartment, employeesForTransfer, bufferedWriter);
+            employeesForTransfer.pollLast();
         }
     }
 
     public static void summary() {
         for (Department department : departments.values()) {
-            System.out.println("В отделе " + department.getName() + " сотрудников - " + department.getEmployees().size() +
-                    " ,средняя зарплата = " + department.getAverageSalary());
+            System.out.println("В отделе " + department.getName() + " сотрудников - " +
+                    department.getEmployees().size() + " ,средняя зарплата = " + department.getAverageSalary());
         }
     }
 
     public static void main(String[] args) {
-        if (args.length == 0) {
-            System.out.println("Некорректные параметры программы");
+        if (args.length != 2) {
+            System.out.println("Некорректные параметры программы. Один файл для ввода, один файл для вывода.");
             return;
         }
 
